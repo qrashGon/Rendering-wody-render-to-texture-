@@ -28,8 +28,11 @@ var bufferTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.inner
 
 //Let's create a red box
 //var redMaterial = new THREE.MeshBasicMaterial({color:0x0000ff});
-var redMaterial = new THREE.TextureLoader().load( 'water.jpg' );
-var boxGeometry = new THREE.PlaneBufferGeometry( 8, 8 );
+
+       texture = THREE.ImageUtils.loadTexture('water.jpg');
+       redMaterial = new THREE.MeshBasicMaterial({map: texture});
+
+var boxGeometry = new THREE.BoxGeometry( 5, 5, 5 );
 var boxObject = new THREE.Mesh( boxGeometry, redMaterial );
 boxObject.position.z = -10; 
 bufferScene.add(boxObject);//We add it to the bufferScene instead of the normal scene!
@@ -37,26 +40,27 @@ bufferScene.add(boxObject);//We add it to the bufferScene instead of the normal 
 ///And a blue plane behind it
 
 //var blueMaterial = new THREE.MeshBasicMaterial({color:0x00ff00})
-var blueMaterial = new THREE.TextureLoader().load( 'grass.jpg' );
-var plane = new THREE.PlaneBufferGeometry( 10,10);
+       texture1 = THREE.ImageUtils.loadTexture('grass.png');
+       blueMaterial = new THREE.MeshBasicMaterial({map: texture1});
+var plane = new THREE.PlaneBufferGeometry( window.innerWidth, window.innerHeight );
 var planeObject = new THREE.Mesh(plane,blueMaterial);
 planeObject.position.z = -10;
 
 bufferScene.add(planeObject);//We add it to the bufferScene instead of the normal scene!
 
 ////////////////////////////Now we use our bufferTexture as a material to render it onto our main scene
-
 var boxMaterial = new THREE.MeshBasicMaterial({map:bufferTexture});
-var boxGeometry2 = new THREE.PlaneBufferGeometry( 10, 10 );
+var boxGeometry2 = new THREE.BoxGeometry( 10, 10, 10 );
 var mainBoxObject = new THREE.Mesh(boxGeometry2,boxMaterial);
 mainBoxObject.position.z = -10;
 scene.add(mainBoxObject);
-
 
 //Render everything!
 function render() {
 
   requestAnimationFrame( render );
+
+
 
   //Render onto our off screen texture
   renderer.render(bufferScene,camera,bufferTexture);
