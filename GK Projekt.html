@@ -32,6 +32,9 @@ var bufferTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.inner
        texture = THREE.ImageUtils.loadTexture('water.jpg');
        redMaterial = new THREE.MeshBasicMaterial({map: texture});
 
+
+
+
 var boxGeometry = new THREE.BoxGeometry( 5, 5, 5 );
 var boxObject = new THREE.Mesh( boxGeometry, redMaterial );
 boxObject.position.z = -10; 
@@ -40,8 +43,8 @@ bufferScene.add(boxObject);//We add it to the bufferScene instead of the normal 
 ///And a blue plane behind it
 
 //var blueMaterial = new THREE.MeshBasicMaterial({color:0x00ff00})
-       texture1 = THREE.ImageUtils.loadTexture('grass.png');
-       blueMaterial = new THREE.MeshBasicMaterial({map: texture1});
+
+       blueMaterial = new THREE.MeshBasicMaterial({color:0x00ff00});
 var plane = new THREE.PlaneBufferGeometry( window.innerWidth, window.innerHeight );
 var planeObject = new THREE.Mesh(plane,blueMaterial);
 planeObject.position.z = -10;
